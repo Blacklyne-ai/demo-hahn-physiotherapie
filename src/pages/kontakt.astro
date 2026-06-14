@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import MapBlock from '../components/MapBlock.astro';
+import { standorte, site, mailLink, whatsappLink } from '../data/site';
+
+const tiles = [
+  { icon: 'MessageCircle', label: 'WhatsApp', value: standorte[0].mobileDisplay, href: whatsappLink, ext: true, accent: 'green' },
+  { icon: 'Mail', label: 'E-Mail', value: site.email, href: mailLink, ext: false, accent: 'blue' },
+  { icon: 'Phone', label: 'Telefon Püttlingen', value: standorte[0].phoneDisplay, href: `tel:${standorte[0].phoneIntl}`, ext: false, accent: 'blue' },
+  { icon: 'Phone', label: 'Telefon Elversberg', value: standorte[1].phoneDisplay, href: `tel:${standorte[1].phoneIntl}`, ext: false, accent: 'blue' },
+];
+---
+<Layout title={`Termin vereinbaren - ${site.name}`} description="Termin vereinbaren bei Hahn Physiotherapie - per Telefon, WhatsApp oder E-Mail. Standorte in Püttlingen und Spiesen-Elversberg." current="/kontakt">
+  <PageHero
+    eyebrow="Kontakt"
+    title="Termin <em>vereinbaren</em>"
+    subtitle="Termine nach Vereinbarung. Schreiben Sie uns oder rufen Sie an - wir hören zu und finden gemeinsam den nächsten Schritt."
+    crumb="Kontakt"
+  />
+
+  <!-- Kontakt-Tiles (kein Formular) -->
+  <section class="bg-white sec-sm border-b border-line">
+    <div class="container-px">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+        {tiles.map((t, i) => (
+          <a href={t.href} target={t.ext ? '_blank' : undefined} rel={t.ext ? 'noopener' : undefined}
+            class={`card card-hover flex flex-col items-start fade-in stagger-${(i % 4) + 1}`}>
+            <span class={`icon-chip mb-4 ${t.accent === 'green' ? '!bg-green/10 !text-green !border-green/20' : ''}`}><Icon name={t.icon} size={22} strokeWidth={1.8} /></span>
+            <span class="text-muted-light text-sm">{t.label}</span>
+            <span class="text-ink font-medium mt-1 break-all">{t.value}</span>
+          </a>
+        ))}
+      </div>
+      <p class="text-muted-light text-sm mt-6 max-w-2xl">
+        Bitte schicken Sie aus Datenschutzgründen keine sensiblen Gesundheitsdaten per
+        unverschlüsselter Nachricht. Für Details besprechen wir alles gern persönlich vor Ort.
+      </p>
+    </div>
+  </section>
+
+  <!-- Standorte + Karten -->
+  <section class="bg-paper sec">
+    <div class="container-px">
+      <div class="grid lg:grid-cols-2 gap-8 lg:gap-10">
+        {standorte.map((s) => (
+          <div class="fade-in">
+            <h2 class="h-xl mb-1">{s.short}</h2>
+            <p class="text-muted mb-5">{s.street} · {s.postcode} {s.city}</p>
+            <MapBlock standort={s} class="aspect-[4/3] mb-5" />
+            <div class="flex flex-wrap gap-3">
+              <a href={`tel:${s.phoneIntl}`} class="btn btn-blue btn-sm"><Icon name="Phone" size={15} strokeWidth={2.2} /> {s.phoneDisplay}</a>
+              <a href={s.mapsUrl} target="_blank" rel="noopener" class="btn btn-outline btn-sm"><Icon name="Navigation" size={15} strokeWidth={2.2} /> Route</a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 panel p-7 md:p-8 flex flex-col sm:flex-row sm:items-center gap-5 justify-between fade-in">
+        <div>
+          <h3 class="h-md mb-1">Präventionskurs</h3>
+          <p class="text-muted text-[0.97rem]">Anmeldung und alle Infos laufen über unsere eigene Kursseite.</p>
+        </div>
+        <a href={site.praeventionUrl} target="_blank" rel="noopener" class="btn btn-outline flex-shrink-0">Zum Präventionskurs<Icon name="ArrowUpRight" size={16} strokeWidth={2.2} /></a>
+      </div>
+    </div>
+  </section>
+</Layout>

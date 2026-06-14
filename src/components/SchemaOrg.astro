@@ -1,0 +1,43 @@
+---
+// Schema.org - zwei Physiotherapie-Standorte + Inhaber. Nur belegte Fakten
+// (Scrape/Impressum). Kein erfundenes Rating, keine erfundenen Öffnungszeiten.
+import { site, standorte } from '../data/site';
+interface Props { schema?: object | object[] | null }
+const { schema = null } = Astro.props;
+
+const person = {
+  '@type': 'Person',
+  '@id': site.url + '/#carsten',
+  name: 'Carsten Hahn',
+  jobTitle: 'Physiotherapeut (B.Sc.)',
+  worksFor: { '@id': site.url + '/#puettlingen' },
+};
+
+const places = standorte.map((s) => ({
+  '@type': 'Physiotherapy',
+  '@id': site.url + '/#' + s.id,
+  name: `${site.name} ${s.short}`,
+  legalName: s.legalName,
+  description: site.description,
+  url: site.url,
+  telephone: s.phoneIntl,
+  email: s.email,
+  image: new URL('/images/og-image.jpg', site.url).toString(),
+  logo: new URL('/logo.png', site.url).toString(),
+  founder: { '@id': site.url + '/#carsten' },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: s.street,
+    postalCode: s.postcode,
+    addressLocality: s.city,
+    addressRegion: 'Saarland',
+    addressCountry: 'DE',
+  },
+  areaServed: ['Saarland', 'Püttlingen', 'Spiesen-Elversberg', 'Saarbrücken', 'Völklingen'],
+  medicalSpecialty: ['Physiotherapy', 'Neurology', 'Pediatrics', 'SportsMedicine'],
+}));
+
+const extra = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+const json = JSON.stringify({ '@context': 'https://schema.org', '@graph': [person, ...places, ...extra] });
+---
+<script type="application/ld+json" set:html={json} />

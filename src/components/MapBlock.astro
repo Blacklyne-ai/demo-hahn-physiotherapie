@@ -1,0 +1,37 @@
+---
+// DSGVO: Google Maps wird erst auf Klick geladen (kein Tracking ohne Einwilligung).
+// Bis dahin: ruhiger Platzhalter mit Adresse + "Karte laden". Pro Standort.
+import type { Standort } from '../data/site';
+import Icon from './Icon.astro';
+interface Props { standort: Standort; class?: string }
+const { standort: s, class: className = '' } = Astro.props;
+---
+<div class={`photo-frame photo-frame-soft relative ${className}`} style="background: rgb(var(--rgb-sand));">
+  <div class="map-consent w-full h-full min-h-[300px] flex flex-col items-center justify-center text-center p-7" data-embed={s.mapsEmbed} data-title={`Karte - ${s.short}`}>
+    <span class="icon-chip mb-4"><Icon name="MapPin" size={22} strokeWidth={1.8} /></span>
+    <p class="font-display h-md text-ink mb-1">{s.short}</p>
+    <p class="text-muted text-sm mb-5">{s.street} · {s.postcode} {s.city}</p>
+    <button type="button" class="map-load btn btn-blue btn-sm"><Icon name="Map" size={15} strokeWidth={2} /> Karte laden</button>
+    <p class="text-muted-light text-xs mt-3 max-w-xs">Mit dem Laden akzeptieren Sie die <a href="/datenschutz" class="underline">Datenschutzerklärung</a> von Google Maps.</p>
+  </div>
+  <a href={s.mapsUrl} target="_blank" rel="noopener" class="absolute bottom-4 left-4 btn btn-light btn-sm shadow-lg z-10">
+    <Icon name="Navigation" size={14} strokeWidth={2.2} /> Route berechnen
+  </a>
+</div>
+<script>
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll('.map-consent').forEach((box) => {
+      const btn = box.querySelector('.map-load');
+      btn?.addEventListener('click', () => {
+        const embed = (box as HTMLElement).dataset.embed;
+        const title = (box as HTMLElement).dataset.title || 'Karte';
+        if (!embed) return;
+        const ifr = document.createElement('iframe');
+        ifr.src = embed; ifr.title = title; ifr.loading = 'lazy';
+        ifr.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+        ifr.style.cssText = 'width:100%;height:100%;min-height:340px;border:0;display:block;';
+        box.replaceWith(ifr);
+      });
+    });
+  });
+</script>

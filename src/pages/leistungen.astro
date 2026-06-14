@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PageHero from '../components/PageHero.astro';
+import { services, kompetenzen, direktzugang } from '../data/content';
+import { site } from '../data/site';
+---
+<Layout title={`Leistungen - ${site.name}`} description="Unsere Kompetenzbereiche: Neurologie, Orthopädie, Pädiatrie, chronische Schmerztherapie, Leistungssport und die Zeit nach Unfall oder Operation." current="/leistungen">
+  <PageHero
+    eyebrow="Leistungen"
+    title="Wobei wir <em>helfen</em>"
+    subtitle="Als Physiotherapiepraxis verfügen wir über alle notwendigen Zulassungen, um Sie bestmöglich zu betreuen - von der Therapie ab der Geburt bis zum Leistungssport."
+    crumb="Leistungen"
+    primary={{ href: '/kontakt', label: 'Termin vereinbaren' }}
+    secondary={{ href: '/konzept', label: 'Unser Konzept' }}
+  />
+
+  <!-- Kompetenzbereiche -->
+  <section class="bg-white sec-sm border-b border-line">
+    <div class="container-px">
+      <p class="eyebrow mb-8 fade-in">Kompetenzbereiche</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 fade-in">
+        {kompetenzen.map((k) => (
+          <div class="flex items-start gap-4 p-5 rounded-2xl border border-line bg-paper">
+            <span class="icon-chip flex-shrink-0"><Icon name={k.icon} size={22} strokeWidth={1.8} /></span>
+            <div>
+              <p class="font-display h-md leading-tight">{k.label}</p>
+              <p class="text-muted-light text-sm mt-1">{k.note}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service cards (mit Foto) -->
+  <section class="bg-paper sec">
+    <div class="container-px">
+      <div class="grid md:grid-cols-2 gap-6 md:gap-7">
+        {services.map((s, i) => (
+          <a href={`/leistungen/${s.slug}`} class={`card-flush group fade-in stagger-${(i % 2) + 1} flex flex-col`}>
+            <div class="aspect-[16/9] overflow-hidden">
+              <img src={s.image} alt={s.title} width="600" height="338" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            </div>
+            <div class="p-6 md:p-7 flex flex-col flex-1">
+              <div class="flex items-center gap-2.5 mb-2">
+                <Icon name={s.icon} size={18} strokeWidth={1.9} class="text-blue-deep" />
+                <span class="eyebrow eyebrow-plain text-blue-deep">{s.eyebrow}</span>
+              </div>
+              <h2 class="h-lg mb-2.5">{s.nav}</h2>
+              <p class="text-[0.98rem] text-muted leading-relaxed flex-1">{s.lead}</p>
+              <span class="arrow-link mt-5">Mehr erfahren<Icon name="ArrowRight" size={16} strokeWidth={2.2} /></span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Direktzugang -->
+  <section class="bg-cream sec-sm border-t border-line">
+    <div class="container-narrow text-center fade-in">
+      <span class="icon-chip mx-auto mb-5"><Icon name="CalendarCheck" size={22} strokeWidth={1.8} /></span>
+      <h2 class="h-xl mb-4 text-balance">{direktzugang.title}</h2>
+      <p class="lead text-pretty">{direktzugang.body}</p>
+      <p class="text-muted-light text-sm mt-4">{direktzugang.note}</p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>

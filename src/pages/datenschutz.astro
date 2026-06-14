@@ -1,0 +1,115 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
+---
+<Layout title={`Datenschutzerklärung - ${site.name}`} noindex={true} current="/datenschutz">
+  <section class="bg-cream pt-28 pb-12 md:pt-36 md:pb-16 border-b border-line">
+    <div class="container-narrow">
+      <span class="eyebrow mb-4">Rechtliches</span>
+      <h1 class="display-2">Datenschutzerklärung</h1>
+    </div>
+  </section>
+  <section class="bg-white sec-sm">
+    <div class="container-narrow legal-prose">
+      <h2>1. Datenschutz auf einen Blick</h2>
+      <p>
+        Der Schutz Ihrer persönlichen Daten ist uns wichtig - gerade im Gesundheitsbereich.
+        Diese Website ist bewusst datensparsam aufgebaut: Sie enthält <strong>kein Kontaktformular</strong>,
+        <strong>kein Tracking</strong> und <strong>keine Analyse-Werkzeuge</strong>. Schriftarten sind lokal
+        eingebunden, Karten von Google Maps werden erst nach Ihrer ausdrücklichen Einwilligung geladen.
+      </p>
+      <p>
+        Besondere Kategorien personenbezogener Daten (z. B. Gesundheitsdaten) werden über diese Website
+        nicht erhoben. Bitte übersenden Sie solche Daten nicht unverschlüsselt - wir besprechen alles
+        Persönliche gern direkt in der Praxis.
+      </p>
+
+      <h2>2. Verantwortliche Stelle</h2>
+      <p>
+        Carsten Hahn<br />
+        Praxis für Physiotherapie Gesundheit und Prävention<br />
+        Völklinger Str. 5, 66346 Püttlingen<br />
+        Telefon: 06898 - 62191<br />
+        E-Mail: <a href="mailto:info@hahn-physiotherapie.com">info@hahn-physiotherapie.com</a>
+      </p>
+
+      <h2>3. Hosting</h2>
+      <p>
+        Diese Website wird als statische Seite bei Cloudflare (Cloudflare, Inc., 101 Townsend St,
+        San Francisco, CA 94107, USA) gehostet. Beim Aufruf der Seite verarbeitet Cloudflare technisch
+        notwendige Verbindungsdaten (u. a. IP-Adresse, Datum und Uhrzeit, abgerufene Datei), um die Seite
+        sicher und zuverlässig auszuliefern. Rechtsgrundlage ist unser berechtigtes Interesse an einer
+        sicheren und effizienten Bereitstellung (Art. 6 Abs. 1 lit. f DSGVO). Die Datenübertragung in die
+        USA wird auf die Standardvertragsklauseln der EU-Kommission gestützt.
+      </p>
+
+      <h2>4. Server-Logfiles</h2>
+      <p>
+        Der Hosting-Anbieter erhebt und speichert automatisch Informationen in Server-Logfiles, die Ihr
+        Browser übermittelt (Browsertyp und -version, Betriebssystem, Referrer-URL, Uhrzeit der
+        Serveranfrage, IP-Adresse). Diese Daten werden nicht mit anderen Datenquellen zusammengeführt und
+        dienen der technischen Sicherheit und Fehleranalyse.
+      </p>
+
+      <h2>5. Cookies</h2>
+      <p>
+        Diese Website setzt keine Tracking- oder Marketing-Cookies. Lediglich ein technischer
+        Eintrag im lokalen Speicher Ihres Browsers (localStorage) merkt sich, dass Sie den Datenschutz-
+        Hinweis bestätigt haben. Dieser Eintrag enthält keine personenbezogenen Daten und wird nicht
+        übertragen.
+      </p>
+
+      <h2>6. Kontaktaufnahme</h2>
+      <p>
+        Wenn Sie uns per Telefon, E-Mail oder Messenger kontaktieren, werden Ihre Angaben zur Bearbeitung
+        Ihres Anliegens gespeichert und verarbeitet (Art. 6 Abs. 1 lit. b und lit. f DSGVO). Diese Daten
+        geben wir nicht ohne Ihre Einwilligung weiter und löschen sie, sobald der Zweck entfällt und keine
+        gesetzlichen Aufbewahrungsfristen entgegenstehen.
+      </p>
+
+      <h2>7. Google Maps (nur nach Einwilligung)</h2>
+      <p>
+        Wir binden Karten des Dienstes Google Maps (Google Ireland Limited, Gordon House, Barrow Street,
+        Dublin 4, Irland) ein. Die Karte wird erst geladen, wenn Sie aktiv auf „Karte laden" klicken. Erst
+        dann wird eine Verbindung zu Google hergestellt und Ihre IP-Adresse an Google übertragen.
+        Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TTDSG), die Sie
+        jederzeit widerrufen können. Mehr unter
+        <a href="https://policies.google.com/privacy?hl=de" target="_blank" rel="noopener">policies.google.com/privacy</a>.
+      </p>
+
+      <h2>8. Schriftarten</h2>
+      <p>
+        Die verwendeten Schriftarten sind lokal eingebunden und werden vom Server dieser Website
+        ausgeliefert. Es besteht dabei keine Verbindung zu Servern Dritter.
+      </p>
+
+      <h2>9. Externe Links und Social Media</h2>
+      <p>
+        Der Präventionskurs läuft über eine eigene Subdomain mit eigener Organisation; dort gelten die
+        dortigen Datenschutzhinweise. Wir unterhalten zudem öffentlich zugängliche Profile bei
+        Instagram, Facebook und LinkedIn. Beim Besuch dieser Profile gelten die Datenschutzbestimmungen
+        der jeweiligen Anbieter.
+      </p>
+
+      <h2>10. Ihre Rechte</h2>
+      <p>
+        Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Herkunft, Empfänger und Zweck
+        Ihrer gespeicherten personenbezogenen Daten sowie ein Recht auf Berichtigung, Löschung,
+        Einschränkung der Verarbeitung, Widerspruch und Datenübertragbarkeit. Außerdem steht Ihnen ein
+        Beschwerderecht bei der zuständigen Aufsichtsbehörde zu.
+      </p>
+
+      <h2>11. SSL- bzw. TLS-Verschlüsselung</h2>
+      <p>
+        Diese Seite nutzt aus Sicherheitsgründen eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte
+        Verbindung erkennen Sie am Schloss-Symbol und an „https://" in der Adresszeile Ihres Browsers.
+      </p>
+
+      <h2>12. Widerspruch gegen Werbe-E-Mails</h2>
+      <p>
+        Der Nutzung der im Impressum veröffentlichten Kontaktdaten zur Übersendung nicht ausdrücklich
+        angeforderter Werbung wird hiermit widersprochen.
+      </p>
+    </div>
+  </section>
+</Layout>

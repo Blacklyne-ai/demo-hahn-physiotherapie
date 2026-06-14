@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PageHero from '../components/PageHero.astro';
+import { light, direktzugang, carstenClosing } from '../data/content';
+import { site } from '../data/site';
+---
+<Layout title={`Das L.I.G.H.T.-Konzept - ${site.name}`} description="Langanhaltende, individualisierte, ganzheitliche Heil-Therapie: das L.I.G.H.T.-Konzept von Carsten Hahn - in vier Stufen zu mehr Lebensqualität." current="/konzept">
+  <PageHero
+    eyebrow="Unser Konzept"
+    title="Das <em>L.I.G.H.T.</em>-Konzept"
+    subtitle="Langanhaltende · Individualisierte · Ganzheitliche Heil-Therapie. Entwickelt aus dem Leistungssport und dem internationalen Studium - mit einem Ziel: dass Sie Ihr Problem selbst lösen können."
+    crumb="Konzept"
+    image="/images/konzept.webp"
+    imageAlt="Hands-on Physiotherapie - gemeinsames Arbeiten am Ziel"
+    primary={{ href: '/kontakt', label: 'Termin vereinbaren' }}
+  />
+
+  <!-- L.I.G.H.T. Buchstaben + Intro -->
+  <section class="bg-white sec border-b border-line">
+    <div class="container-px">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-12 fade-in">
+        {light.letters.map((x) => (
+          <div class="rounded-2xl border border-line bg-paper p-6 flex flex-col items-start">
+            <span class="font-display text-blue-deep text-5xl md:text-6xl leading-none" style="font-variation-settings:'opsz' 144;">{x.l}</span>
+            <span class="text-muted text-sm mt-3">{x.word}</span>
+          </div>
+        ))}
+      </div>
+      <p class="container-narrow !px-0 text-[1.1rem] md:text-[1.18rem] leading-relaxed text-ink-soft text-pretty fade-in">{light.intro}</p>
+    </div>
+  </section>
+
+  <!-- Die vier Stufen -->
+  <section class="bg-paper sec">
+    <div class="container-px">
+      <div class="max-w-2xl mb-12 fade-in">
+        <span class="eyebrow mb-5">Der Weg</span>
+        <h2 class="display-2 text-balance">In vier Stufen zum Ziel</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-5 md:gap-6">
+        {light.stages.map((st, i) => (
+          <div class={`card flex flex-col fade-in stagger-${(i % 2) + 1}`}>
+            <div class="flex items-center gap-4 mb-4">
+              <span class="font-display text-4xl text-blue/30 leading-none" style="font-variation-settings:'opsz' 144;">{st.n}</span>
+              <h3 class="h-lg">{st.title}</h3>
+            </div>
+            <p class="text-muted leading-relaxed flex-1">{st.body}</p>
+            <div class="mt-5 pt-5 border-t border-line flex items-start gap-3">
+              <Icon name="Target" size={18} strokeWidth={2} class="text-blue-deep mt-0.5 flex-shrink-0" />
+              <p class="text-[0.95rem] text-ink-soft"><span class="font-medium">Ziel:</span> {st.goal}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Evaluation -->
+  <section class="section-dark on-dark sec-sm">
+    <div class="container-narrow fade-in">
+      <span class="eyebrow eyebrow-light mb-5">Qualität</span>
+      <h2 class="h-xl text-white mb-5 text-balance">Evaluation und Qualitätsmanagement</h2>
+      <p class="text-white/75 text-[1.05rem] leading-relaxed text-pretty">{light.evaluation}</p>
+    </div>
+  </section>
+
+  <!-- Direktzugang / L.I.G.H.T.-Therapie Details -->
+  <section class="bg-cream sec-sm border-b border-line">
+    <div class="container-narrow">
+      <div class="space-y-6 fade-in">
+        <div>
+          <h2 class="h-lg mb-3">{direktzugang.title}</h2>
+          <p class="text-[1.02rem] leading-relaxed text-pretty">{direktzugang.body}</p>
+        </div>
+        <div class="card">
+          <p class="text-[1.0rem] leading-relaxed text-pretty">{direktzugang.light}</p>
+          <p class="text-muted-light text-sm mt-4">{direktzugang.note}</p>
+        </div>
+      </div>
+      <p class="font-display italic text-blue-deep text-2xl mt-10 text-center fade-in">{carstenClosing}</p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>

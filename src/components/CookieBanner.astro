@@ -1,0 +1,28 @@
+---
+// Schlichter DSGVO-Hinweis. Die Site setzt keine Tracking-Cookies.
+// Google Maps wird erst nach Klick geladen (Consent im MapBlock) - hier nur Info.
+---
+<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-[60] p-3 md:p-4 translate-y-full transition-transform duration-500" style="will-change: transform;">
+  <div class="container-px flex justify-start">
+    <div class="rounded-2xl px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 max-w-xl" style="background: rgba(13,36,45,0.97); border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 24px 60px -20px rgba(13,36,45,0.6); backdrop-filter: blur(14px);">
+      <p class="text-white/75 text-[0.84rem] leading-relaxed">
+        Diese Seite verwendet nur technisch notwendige Cookies - kein Tracking, keine Analyse.
+        Karten von Google Maps werden erst auf Ihren Klick geladen. Mehr in der
+        <a href="/datenschutz" class="text-white underline underline-offset-2">Datenschutzerklärung</a>.
+      </p>
+      <button id="cookie-ok" class="btn btn-light btn-sm flex-shrink-0 self-start sm:self-auto">Verstanden</button>
+    </div>
+  </div>
+</div>
+<script>
+  const KEY = 'hahn-cookie-notice';
+  document.addEventListener('astro:page-load', () => {
+    const banner = document.getElementById('cookie-banner');
+    const stored = (() => { try { return localStorage.getItem(KEY); } catch { return 'dismissed'; } })();
+    if (!stored && banner) setTimeout(() => (banner.style.transform = 'translateY(0)'), 1200);
+    document.getElementById('cookie-ok')?.addEventListener('click', () => {
+      try { localStorage.setItem(KEY, 'ok'); } catch {}
+      if (banner) banner.style.transform = 'translateY(150%)';
+    });
+  });
+</script>

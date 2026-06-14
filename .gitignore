@@ -1,0 +1,42 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# environment
+.env
+.env.production
+
+# macOS
+.DS_Store
+
+# editor
+.vscode/
+.idea/
+
+# working scratch (raw scrape assets kept out of the deploy)
+_raw/
+
+# local editor / preview config (machine-specific)
+.claude/
+
+# Scrape-Artefakte: Roh-HTML kann CDN-Tokens enthalten (Push Protection),
+# Screenshots/Assets sind groß — nur STYLE-GUIDE.md + JUDGEMENT_CALLS.md committen
+docs/*.html
+docs/*.txt
+docs/*.png
+docs/*.json
+docs/assets-raw/
+docs/scrape/
+docs/qa/
+docs/img-raw/
+docs/img-shot/
+docs/stock/
+docs/final/

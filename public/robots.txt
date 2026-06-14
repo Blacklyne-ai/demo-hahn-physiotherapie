@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /impressum
+Disallow: /datenschutz
+
+Sitemap: https://demo-hahn-physiotherapie.pages.dev/sitemap-index.xml

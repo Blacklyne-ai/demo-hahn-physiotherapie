@@ -1,0 +1,30 @@
+---
+// Mobile Floating-Bar - schlank (Memory: keine fetten Controls).
+import { standorte, mailLink } from '../data/site';
+import Icon from './Icon.astro';
+const tel = standorte[0];
+---
+<div id="floating-cta" class="floating-mobile fixed bottom-3 left-0 right-0 z-40 px-3 gap-2 pointer-events-none transition-transform duration-300" style="will-change: transform;">
+  <a href={`tel:${tel.phoneIntl}`} class="btn btn-light btn-sm pointer-events-auto flex-1" aria-label="Anrufen"><Icon name="Phone" size={15} strokeWidth={2.2} /> Anrufen</a>
+  <a href="/kontakt" class="btn btn-blue btn-sm pointer-events-auto flex-1">Termin vereinbaren</a>
+  <a href={mailLink} class="btn btn-light btn-sm pointer-events-auto !px-3" aria-label="E-Mail schreiben"><Icon name="Mail" size={17} strokeWidth={2.2} /></a>
+</div>
+<script>
+  const w = window as any;
+  if (!w.__hahnFcta) {
+    w.__hahnFcta = true;
+    let lastY = window.scrollY, hidden = false, ticking = false;
+    window.addEventListener('scroll', () => {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(() => {
+        const el = document.getElementById('floating-cta');
+        const y = window.scrollY;
+        if (el) {
+          if (y > lastY + 4 && y > 360 && !hidden) { el.style.transform = 'translateY(180%)'; hidden = true; }
+          else if (y < lastY - 4 && hidden) { el.style.transform = 'translateY(0)'; hidden = false; }
+        }
+        lastY = y; ticking = false;
+      });
+    }, { passive: true });
+  }
+</script>

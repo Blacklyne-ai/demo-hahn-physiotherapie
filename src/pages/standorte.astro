@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PageHero from '../components/PageHero.astro';
+import MapBlock from '../components/MapBlock.astro';
+import { standorte, site, mailLink } from '../data/site';
+---
+<Layout title={`Standorte - ${site.name} | Püttlingen & Spiesen-Elversberg`} description="Unsere zwei Praxen im Saarland: Völklinger Straße 5 in Püttlingen und St. Ingberter Straße 1 in Spiesen-Elversberg. Termine nach Vereinbarung." current="/standorte">
+  <PageHero
+    eyebrow="Standorte"
+    title="Püttlingen und <em>Spiesen-Elversberg</em>"
+    subtitle="Zwei Praxen im Saarland - dieselbe Haltung, dasselbe Konzept. Termine nach Vereinbarung."
+    crumb="Standorte"
+  />
+
+  {standorte.map((s, i) => (
+    <section class={`${i % 2 === 0 ? 'bg-white' : 'bg-paper'} sec border-b border-line`}>
+      <div class="container-px">
+        <div class={`grid lg:grid-cols-2 gap-10 lg:gap-14 items-center ${i % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''}`}>
+          <div class="fade-in">
+            <span class="eyebrow mb-5">Standort {String(i + 1).padStart(2, '0')}</span>
+            <h2 class="display-2 mb-2">{s.short}</h2>
+            <p class="text-muted mb-7">{s.legalName}</p>
+
+            <div class="space-y-4">
+              <div class="flex items-start gap-4">
+                <span class="icon-chip flex-shrink-0"><Icon name="MapPin" size={20} strokeWidth={1.8} /></span>
+                <div><p class="text-ink font-medium">{s.street}</p><p class="text-muted">{s.postcode} {s.city}</p></div>
+              </div>
+              <a href={`tel:${s.phoneIntl}`} class="flex items-center gap-4 group">
+                <span class="icon-chip flex-shrink-0"><Icon name="Phone" size={20} strokeWidth={1.8} /></span>
+                <span><span class="text-muted-light text-sm block">Telefon</span><span class="text-ink font-medium group-hover:text-blue-ink transition">{s.phoneDisplay}</span></span>
+              </a>
+              {s.mobileDisplay && (
+                <a href={`tel:${s.mobileIntl}`} class="flex items-center gap-4 group">
+                  <span class="icon-chip flex-shrink-0"><Icon name="PhoneCall" size={20} strokeWidth={1.8} /></span>
+                  <span><span class="text-muted-light text-sm block">Mobil</span><span class="text-ink font-medium group-hover:text-blue-ink transition">{s.mobileDisplay}</span></span>
+                </a>
+              )}
+              <a href={mailLink} class="flex items-center gap-4 group">
+                <span class="icon-chip flex-shrink-0"><Icon name="Mail" size={20} strokeWidth={1.8} /></span>
+                <span><span class="text-muted-light text-sm block">E-Mail</span><span class="text-ink font-medium group-hover:text-blue-ink transition break-all">{s.email}</span></span>
+              </a>
+              {s.faxDisplay && <p class="text-muted-light text-sm pl-[4rem]">Fax {s.faxDisplay}</p>}
+            </div>
+
+            <div class="flex flex-wrap gap-3 mt-8">
+              <a href="/kontakt" class="btn btn-blue">Termin vereinbaren<Icon name="ArrowRight" size={15} strokeWidth={2.2} /></a>
+              <a href={s.mapsUrl} target="_blank" rel="noopener" class="btn btn-outline"><Icon name="Navigation" size={15} strokeWidth={2.2} /> Route berechnen</a>
+            </div>
+          </div>
+
+          <div class="fade-in stagger-1">
+            <MapBlock standort={s} class="aspect-[4/3] lg:aspect-auto lg:h-[420px]" />
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <CtaBand />
+</Layout>

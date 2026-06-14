@@ -1,0 +1,149 @@
+---
+import { nav, standorte, site } from '../data/site';
+import Icon from './Icon.astro';
+const { current = '' } = Astro.props;
+const tel = standorte[0];
+
+const isActive = (item: (typeof nav)[number]) =>
+  current === item.href ||
+  (item.href.length > 1 && !item.external && current.startsWith(item.href)) ||
+  (!!item.children && item.children.some((c) => c.href === current));
+---
+
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-shadow duration-300"
+  style="background: rgba(250,247,242,0.88); backdrop-filter: blur(14px) saturate(150%); -webkit-backdrop-filter: blur(14px) saturate(150%); border-bottom: 1px solid rgba(230,223,212,0.9);">
+  <div class="container-wide">
+    <div class="flex items-center justify-between gap-4 h-[4.6rem] md:h-20">
+      <!-- Brand: Original-Logo 1:1 -->
+      <a href="/" class="flex items-center flex-shrink-0" aria-label={`${site.name} - Startseite`}>
+        <img src="/logo.png" alt="Hahn Physiotherapie - Gesundheit & Prävention" width="220" height="39" class="h-7 md:h-9 w-auto" />
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden lg:flex items-center gap-7" aria-label="Hauptnavigation">
+        {nav.filter((i) => i.href !== '/').map((item) =>
+          item.children ? (
+            <div class="nav-dd relative">
+              <a href={item.href} class={`nav-link inline-flex items-center gap-1 ${isActive(item) ? 'active' : ''}`} aria-haspopup="true" aria-expanded="false">
+                {item.label}
+                <Icon name="ChevronDown" size={14} strokeWidth={2.2} class="nav-dd-chev" />
+              </a>
+              <div class="nav-dd-panel" role="menu">
+                {item.children.map((c) => (
+                  <a href={c.href} role="menuitem" class={`nav-dd-item ${current === c.href ? 'active' : ''}`}>{c.label}</a>
+                ))}
+              </div>
+            </div>
+          ) : item.external ? (
+            <a href={item.href} target="_blank" rel="noopener" class="nav-link inline-flex items-center gap-1.5">
+              {item.label}<Icon name="ArrowUpRight" size={14} strokeWidth={2.2} />
+            </a>
+          ) : (
+            <a href={item.href} class={`nav-link ${isActive(item) ? 'active' : ''}`}>{item.label}</a>
+          )
+        )}
+      </nav>
+
+      <!-- Right cluster -->
+      <div class="flex items-center gap-2.5">
+        <a href={`tel:${tel.phoneIntl}`} class="hidden md:inline-flex items-center gap-2 text-ink/80 hover:text-blue-ink transition text-sm font-medium" aria-label={`Anrufen Püttlingen ${tel.phoneDisplay}`}>
+          <Icon name="Phone" size={16} strokeWidth={2} class="text-blue-deep" />
+          <span class="hidden xl:inline">{tel.phoneDisplay}</span>
+        </a>
+        <a href="/kontakt" class="btn btn-blue btn-sm hidden sm:inline-flex">Termin vereinbaren</a>
+
+        <button id="menu-toggle" class="lg:hidden inline-flex items-center justify-center w-11 h-11 -mr-1.5 rounded-full transition" style="color:#1A2A32;" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-line" style="background: rgba(250,247,242,0.98); backdrop-filter: blur(16px);">
+    <nav class="container-px flex flex-col py-4 max-h-[calc(100vh-4.6rem)] overflow-y-auto" aria-label="Mobile Navigation">
+      {nav.map((item) => (
+        <Fragment>
+          <a href={item.href} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener' : undefined}
+            class="py-3 text-ink/90 hover:text-blue-ink border-b border-line/70 font-display text-lg inline-flex items-center gap-1.5"
+            style={current === item.href ? 'color:#124E6E' : ''}>
+            {item.label}{item.external && <Icon name="ArrowUpRight" size={15} strokeWidth={2} />}
+          </a>
+          {item.children && (
+            <div class="flex flex-col pl-4 border-b border-line/70">
+              {item.children.map((c) => (
+                <a href={c.href} class="py-2.5 text-[0.95rem] text-muted hover:text-blue-ink transition">{c.label}</a>
+              ))}
+            </div>
+          )}
+        </Fragment>
+      ))}
+      <div class="grid grid-cols-2 gap-2.5 mt-5">
+        <a href={`tel:${tel.phoneIntl}`} class="btn btn-outline btn-sm"><Icon name="Phone" size={15} strokeWidth={2.2} /> Anrufen</a>
+        <a href="/kontakt" class="btn btn-blue btn-sm">Termin vereinbaren</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .hamburger { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; width: 24px; height: 24px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: #1A2A32; border-radius: 2px; transition: transform 0.4s cubic-bezier(0.68,-0.55,0.27,1.55), opacity 0.25s ease; transform-origin: center; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-dd-panel {
+    position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%) translateY(8px);
+    min-width: 270px; padding: 0.5rem; border-radius: 16px;
+    background: rgba(255,255,255,0.98); border: 1px solid rgb(230,223,212);
+    backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%);
+    box-shadow: 0 20px 44px -16px rgba(40,40,35,0.24);
+    opacity: 0; visibility: hidden; transition: opacity 0.25s ease, transform 0.25s ease; z-index: 60;
+  }
+  .nav-dd-panel::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 18px; }
+  .nav-dd:hover .nav-dd-panel, .nav-dd:focus-within .nav-dd-panel { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+  .nav-dd:hover .nav-dd-chev { transform: rotate(180deg); }
+  .nav-dd-chev { transition: transform 0.3s ease; }
+  .nav-dd-item { display: block; padding: 0.62rem 0.85rem; border-radius: 10px; font-size: 0.92rem; font-weight: 500; color: rgba(26,42,50,0.78); transition: background 0.2s ease, color 0.2s ease; }
+  .nav-dd-item:hover { background: rgba(40,136,192,0.08); color: #124E6E; }
+  .nav-dd-item.active { color: #124E6E; background: rgba(40,136,192,0.06); font-weight: 600; }
+</style>
+
+<script>
+  function isOpen() { const m = document.getElementById('mobile-menu'); return !!m && !m.classList.contains('hidden'); }
+  function setOpen(open: boolean) {
+    const menu = document.getElementById('mobile-menu');
+    const toggle = document.getElementById('menu-toggle');
+    const burger = toggle?.querySelector('.hamburger');
+    if (!menu) return;
+    menu.classList.toggle('hidden', !open);
+    burger?.classList.toggle('open', open);
+    toggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle?.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  document.addEventListener('astro:page-load', () => {
+    const toggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    toggle?.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!isOpen()); });
+    menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    document.body.style.overflow = '';
+  });
+  const w = window as any;
+  if (!w.__hahnHeader) {
+    w.__hahnHeader = true;
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) setOpen(false); });
+    document.addEventListener('click', (e) => { const h = document.getElementById('site-header'); if (isOpen() && h && !h.contains(e.target as Node)) setOpen(false); });
+    window.addEventListener('resize', () => { if (window.innerWidth >= 1024 && isOpen()) setOpen(false); });
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(() => {
+        const h = document.getElementById('site-header');
+        if (h) h.style.boxShadow = window.scrollY > 20 ? '0 10px 30px -16px rgba(40,40,35,0.25)' : 'none';
+        ticking = false;
+      });
+    }, { passive: true });
+  }
+</script>

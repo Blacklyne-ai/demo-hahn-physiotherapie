@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PageHero from '../components/PageHero.astro';
+import { standorte, site } from '../data/site';
+import { carstenQuals, carstenQuote } from '../data/content';
+
+// Rollen, soweit aus dem Scrape belegt (sonst kein erfundener Titel)
+const roles: Record<string, string> = {
+  'Carsten Hahn': 'Inhaber · Physiotherapeut (B.Sc.)',
+  'Franziska Strauß': 'Schwerpunkt Pädiatrie · Vojta-Therapeutin',
+  'Michaela Müller': 'Schwerpunkt Neurologie',
+  'Gertrud Speicher': 'Schwerpunkt Neurologie',
+  'Julia Kurz': 'Schwerpunkt Neurologie',
+  'Karin Bähr': 'Schwerpunkt Neurologie',
+};
+const initials = (n: string) => n.split(' ').filter(Boolean).map((w) => w[0]).slice(0, 2).join('');
+---
+<Layout title={`Team - ${site.name}`} description="Das Team von Hahn Physiotherapie an den Standorten Püttlingen und Spiesen-Elversberg - rund um Inhaber Carsten Hahn (B.Sc.)." current="/team">
+  <PageHero
+    eyebrow="Team"
+    title="Menschen, die <em>zuhören</em>"
+    subtitle="Hinter beiden Praxen steht ein Team, das gemeinsam an einem arbeitet: dass es Ihnen besser geht. Geleitet von Carsten Hahn."
+    crumb="Team"
+  />
+
+  <!-- Carsten featured -->
+  <section class="bg-white sec border-b border-line">
+    <div class="container-px">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+        <div class="lg:col-span-4 fade-in">
+          <div class="photo-frame aspect-[4/5] max-w-xs">
+            <img src="/images/carsten-hahn.webp" alt="Carsten Hahn, Inhaber und Physiotherapeut (B.Sc.)" width="380" height="475" loading="lazy" />
+          </div>
+        </div>
+        <div class="lg:col-span-8 fade-in stagger-1">
+          <span class="eyebrow mb-5">Carsten Hahn · Inhaber</span>
+          <blockquote class="pullquote mb-7 text-balance">„{carstenQuote}"</blockquote>
+          <p class="text-muted leading-relaxed mb-6 max-w-2xl">
+            Examinierter Physiotherapeut seit 2017, Bachelor of Science aus den Niederlanden,
+            mit eigener Vergangenheit im Leistungssport. Aus dieser Erfahrung ist das
+            L.I.G.H.T.-Konzept entstanden.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            {carstenQuals.map((q) => <span class="pill">{q}</span>)}
+          </div>
+          <a href="/konzept" class="arrow-link mt-7">Mehr über das Konzept<Icon name="ArrowRight" size={16} strokeWidth={2.2} /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team je Standort -->
+  {standorte.map((s, idx) => (
+    <section class={`${idx % 2 === 0 ? 'bg-paper' : 'bg-white'} sec border-b border-line`}>
+      <div class="container-px">
+        <div class="flex items-center gap-3 mb-10 fade-in">
+          <Icon name="MapPin" size={20} strokeWidth={2} class="text-blue-deep" />
+          <h2 class="display-2">{s.short}</h2>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+          {s.team.filter((n) => n !== 'Carsten Hahn').map((n, i) => (
+            <div class={`flex items-center gap-4 p-5 rounded-2xl border border-line bg-white fade-in stagger-${(i % 3) + 1}`}>
+              <span class="w-12 h-12 rounded-full flex items-center justify-center font-display text-blue-deep text-lg flex-shrink-0" style="background: rgb(var(--rgb-blue) / 0.1); border: 1px solid rgb(var(--rgb-blue) / 0.16);">{initials(n)}</span>
+              <div>
+                <p class="text-ink font-medium leading-tight">{n}</p>
+                {roles[n] && <p class="text-muted-light text-sm mt-0.5">{roles[n]}</p>}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <CtaBand />
+</Layout>

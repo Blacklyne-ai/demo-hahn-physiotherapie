@@ -1,0 +1,105 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import PageHero from '../../components/PageHero.astro';
+import { services, servicesBySlug, direktzugang } from '../../data/content';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug } }));
+}
+const { slug } = Astro.params;
+const svc = servicesBySlug[slug as string];
+const others = services.filter((s) => s.slug !== slug).slice(0, 3);
+---
+<Layout
+  title={`${svc.title} - ${site.name}`}
+  description={svc.lead}
+  current="/leistungen"
+  ogImage={svc.image}
+>
+  <PageHero
+    eyebrow={svc.eyebrow}
+    title={svc.title}
+    subtitle={svc.lead}
+    crumb={svc.nav}
+    image={svc.image}
+    imageAlt={svc.title}
+    primary={{ href: '/kontakt', label: 'Termin vereinbaren' }}
+    secondary={{ href: '/leistungen', label: 'Alle Leistungen' }}
+  />
+
+  <section class="bg-white sec">
+    <div class="container-narrow">
+      {svc.author && (
+        <div class="flex items-center gap-3 mb-10 pb-8 border-b border-line fade-in">
+          <span class="icon-chip"><Icon name="Quote" size={20} strokeWidth={1.8} /></span>
+          <p class="text-muted text-[0.97rem]">Dieser Bereich wird betreut von <strong>{svc.author}</strong>{svc.authorRole && <span> - {svc.authorRole}</span>}.</p>
+        </div>
+      )}
+
+      <div class="space-y-12">
+        {svc.sections.map((sec) => (
+          <div class="fade-in">
+            {sec.heading && <h2 class="h-lg mb-5 text-balance">{sec.heading}</h2>}
+            {sec.paras && <div class="space-y-4 text-[1.04rem] leading-relaxed">{sec.paras.map((p) => <p>{p}</p>)}</div>}
+            {sec.list && (
+              <div class={sec.paras ? 'mt-6' : ''}>
+                {sec.listLabel && <p class="font-medium text-ink mb-3">{sec.listLabel}</p>}
+                <ul class="space-y-2.5">
+                  {sec.list.map((li) => (
+                    <li class="flex items-start gap-3 text-[1.02rem]">
+                      <Icon name="Check" size={18} strokeWidth={2.4} class="text-blue-deep mt-1 flex-shrink-0" />
+                      <span>{li}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {svc.slug === 'sportphysiotherapie-nachwuchs' && (
+        <div class="panel p-7 md:p-8 mt-12 fade-in">
+          <p class="text-ink text-[1.02rem] leading-relaxed">
+            <strong>Aus eigener Erfahrung:</strong> Als Physiotherapeut im Nachwuchsleistungszentrum der
+            SV Elversberg und als ehemaliger Ringer und Linebacker weiß ich, wie sich Wettkampf,
+            Verletzung und Rückkehr anfühlen.
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="bg-cream sec-sm border-y border-line">
+    <div class="container-px">
+      <div class="grid lg:grid-cols-12 gap-10 items-start">
+        <div class="lg:col-span-7 fade-in">
+          <span class="eyebrow mb-4">{direktzugang.title}</span>
+          <p class="text-[1.02rem] leading-relaxed text-pretty">{direktzugang.body}</p>
+          <p class="text-muted-light text-sm mt-3">{direktzugang.note}</p>
+        </div>
+        <div class="lg:col-span-5 fade-in">
+          <h2 class="h-md mb-4">Weitere Leistungen</h2>
+          <ul class="space-y-1">
+            {others.map((o) => (
+              <li>
+                <a href={`/leistungen/${o.slug}`} class="flex items-center justify-between gap-3 py-3 border-b border-line group">
+                  <span class="flex items-center gap-3">
+                    <Icon name={o.icon} size={19} strokeWidth={1.8} class="text-blue-deep" />
+                    <span class="text-ink group-hover:text-blue-ink transition">{o.nav}</span>
+                  </span>
+                  <Icon name="ArrowRight" size={16} strokeWidth={2.2} class="text-muted-light group-hover:text-blue-ink transition" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>

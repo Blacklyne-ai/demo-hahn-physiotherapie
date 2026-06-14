@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+---
+<Layout title={`Seite nicht gefunden - ${site.name}`} noindex={true}>
+  <section class="bg-paper min-h-[70vh] flex items-center sec">
+    <div class="container-narrow text-center">
+      <p class="font-display text-blue/30 leading-none" style="font-size: clamp(5rem, 18vw, 11rem); font-variation-settings:'opsz' 144;">404</p>
+      <h1 class="display-2 mt-2 mb-4 text-balance">Diese Seite haben wir nicht gefunden</h1>
+      <p class="lead max-w-xl mx-auto mb-8 text-pretty">Vielleicht ist der Link veraltet. Zurück zur Startseite - oder direkt zu einem Termin.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="/" class="btn btn-blue btn-lg"><Icon name="ArrowLeft" size={16} strokeWidth={2.2} /> Zur Startseite</a>
+        <a href="/kontakt" class="btn btn-outline btn-lg">Termin vereinbaren</a>
+      </div>
+    </div>
+  </section>
+</Layout>

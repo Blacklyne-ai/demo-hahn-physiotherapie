@@ -1,0 +1,191 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site, standorte } from '../data/site';
+import { services, light, sportVita, carstenStory, carstenQuote, carstenClosing, carstenQuals } from '../data/content';
+---
+<Layout title={`${site.name} - Ihr Weg zu mehr Lebensqualität | Püttlingen & Spiesen-Elversberg`} current="/" heroPreload="/images/hero.webp">
+
+  <!-- ════════ HERO (split, type-led, warm) ════════ -->
+  <section class="bg-paper relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24">
+    <div class="container-wide relative">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div class="lg:col-span-6 fade-in">
+          <span class="eyebrow mb-6">Physiotherapie · Püttlingen &amp; Spiesen-Elversberg</span>
+          <h1 class="display-1 text-balance">Ihr Weg zu mehr <em>Lebensqualität</em>.</h1>
+          <p class="lead mt-7 max-w-xl text-pretty">
+            Physiotherapie aus der Erfahrung des Leistungssports. Wir betrachten Ihr Anliegen
+            als Ganzes - und gehen es gemeinsam an, Schritt für Schritt.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3 mt-9">
+            <a href="/kontakt" class="btn btn-blue btn-lg">Termin vereinbaren<Icon name="ArrowRight" size={17} strokeWidth={2.2} /></a>
+            <a href="/konzept" class="btn btn-outline btn-lg">Wie wir arbeiten</a>
+          </div>
+          <p class="mt-8 text-sm text-muted-light flex flex-wrap items-center gap-x-2.5 gap-y-1">
+            <Icon name="ShieldCheck" size={16} strokeWidth={2} class="text-blue-deep" />
+            Examiniert seit 2017 · B.Sc. Physiotherapy (NL) · Sektoraler Heilpraktiker
+          </p>
+        </div>
+        <div class="lg:col-span-6 fade-in stagger-1">
+          <div class="relative">
+            <div class="absolute -inset-3 md:-inset-5 rounded-[2.2rem] bg-blue/5 -z-10 hidden sm:block" aria-hidden="true"></div>
+            <div class="photo-frame aspect-[5/4] md:aspect-[4/3]">
+              <img src="/images/hero.webp" alt="Physiotherapeut begleitet eine Patientin bei einer Übung" width="750" height="625" fetchpriority="high" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ CARSTEN (das Herz - seine Stimme) ════════ -->
+  <section class="bg-white sec border-y border-line" id="carsten">
+    <div class="container-px">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+        <!-- Portrait + Vita -->
+        <div class="lg:col-span-5 fade-in">
+          <div class="photo-frame aspect-[4/5] max-w-sm">
+            <img src="/images/carsten-hahn.webp" alt="Carsten Hahn, Inhaber und Physiotherapeut (B.Sc.)" width="440" height="550" loading="lazy" />
+          </div>
+          <div class="mt-7 space-y-4">
+            {sportVita.map((v) => (
+              <div class="flex items-baseline gap-4">
+                <span class="font-display text-blue-deep text-[0.95rem] tabular-nums w-24 flex-shrink-0">{v.years}</span>
+                <span class="text-ink"><span class="font-medium">{v.title}</span><span class="text-muted-light"> - {v.detail}</span></span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <!-- Story -->
+        <div class="lg:col-span-7 fade-in stagger-1">
+          <span class="eyebrow mb-6">Carsten Hahn · Inhaber</span>
+          <blockquote class="pullquote-lg mb-8 text-balance">„{carstenQuote}"</blockquote>
+          <div class="space-y-5 text-[1.02rem] leading-relaxed">
+            {carstenStory.map((p) => <p>{p}</p>)}
+          </div>
+          <p class="mt-7 font-display italic text-blue-deep text-xl">{carstenClosing}</p>
+          <div class="flex flex-wrap gap-2 mt-7">
+            {carstenQuals.map((q) => <span class="pill">{q}</span>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ LEISTUNGEN ════════ -->
+  <section class="bg-paper sec" id="leistungen">
+    <div class="container-px">
+      <div class="max-w-2xl mb-12 md:mb-16 fade-in">
+        <span class="eyebrow mb-5">Behandlung</span>
+        <h2 class="display-2 text-balance">Wobei wir helfen</h2>
+        <p class="lead mt-5 text-pretty">
+          Von der Therapie ab dem Säuglingsalter bis zur Begleitung von Leistungssportlern -
+          jede Behandlung beginnt mit Zuhören und einem genauen Bild Ihres Anliegens.
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+        {services.map((s, i) => (
+          <a href={`/leistungen/${s.slug}`} class={`card card-hover group flex flex-col fade-in stagger-${(i % 3) + 1}`}>
+            <span class="icon-chip mb-5"><Icon name={s.icon} size={24} strokeWidth={1.8} /></span>
+            <h3 class="h-md mb-2.5">{s.nav}</h3>
+            <p class="text-[0.96rem] text-muted leading-relaxed flex-1">{s.lead}</p>
+            <span class="arrow-link mt-5">Mehr erfahren<Icon name="ArrowRight" size={16} strokeWidth={2.2} /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ KONZEPT: L.I.G.H.T. ════════ -->
+  <section class="section-dark on-dark sec relative overflow-hidden" id="konzept">
+    <div class="absolute left-1/2 top-0 -translate-x-1/2 w-[40rem] h-[40rem] rounded-full opacity-[0.10] pointer-events-none" style="background: radial-gradient(circle, rgb(var(--rgb-blue-bright)) 0%, transparent 65%);" aria-hidden="true"></div>
+    <div class="container-px relative">
+      <div class="max-w-2xl mb-12 fade-in">
+        <span class="eyebrow eyebrow-light mb-5">Unser Konzept</span>
+        <h2 class="display-2 text-white text-balance">Wie wir arbeiten</h2>
+        <p class="text-lg text-white/72 mt-5 text-pretty">
+          Ich habe aus dem Leistungssport und dem internationalen Studium ein eigenes Konzept
+          entwickelt - mit einem Ziel: Sie sollen Ihr Problem am Ende selbst lösen können.
+        </p>
+      </div>
+      <!-- L.I.G.H.T. Buchstaben -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-px rounded-2xl overflow-hidden border border-white/10 mb-10 fade-in" style="background: rgba(255,255,255,0.08);">
+        {light.letters.map((x) => (
+          <div class="bg-dark p-6 md:p-7 flex flex-col items-start" style="background: rgb(var(--rgb-dark));">
+            <span class="font-display text-blue-bright text-5xl md:text-6xl leading-none" style="font-variation-settings:'opsz' 144;">{x.l}</span>
+            <span class="text-white/70 text-sm mt-3">{x.word}</span>
+          </div>
+        ))}
+      </div>
+      <div class="grid lg:grid-cols-12 gap-8 items-center fade-in">
+        <p class="lg:col-span-8 text-white/72 text-[1.02rem] leading-relaxed text-pretty">{light.intro}</p>
+        <div class="lg:col-span-4 lg:text-right">
+          <a href="/konzept" class="btn btn-light btn-lg">Mehr zum Konzept<Icon name="ArrowRight" size={16} strokeWidth={2.2} /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ PRÄVENTION (externer Kurs) ════════ -->
+  <section class="bg-cream sec-sm border-b border-line">
+    <div class="container-px">
+      <div class="panel p-8 md:p-12 grid lg:grid-cols-12 gap-8 items-center fade-in" style="background:#fff;">
+        <div class="lg:col-span-8">
+          <span class="eyebrow eyebrow-clay mb-4">Prävention</span>
+          <h2 class="h-xl text-balance mb-4">Vorbeugen, bevor etwas wehtut</h2>
+          <p class="lead text-pretty max-w-2xl">
+            Alle Infos und die Anmeldung zum Präventionskurs finden Sie direkt auf unserer
+            eigenen Kursseite - dort läuft die Organisation und Buchung.
+          </p>
+        </div>
+        <div class="lg:col-span-4 lg:text-right">
+          <a href={site.praeventionUrl} target="_blank" rel="noopener" class="btn btn-blue btn-lg">Zum Präventionskurs<Icon name="ArrowUpRight" size={17} strokeWidth={2.2} /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ STANDORTE ════════ -->
+  <section class="bg-paper sec" id="standorte">
+    <div class="container-px">
+      <div class="max-w-2xl mb-12 fade-in">
+        <span class="eyebrow mb-5">Standorte</span>
+        <h2 class="display-2 text-balance">Püttlingen und Spiesen-Elversberg</h2>
+        <p class="lead mt-5 text-pretty">Zwei Praxen im Saarland - dieselbe Haltung, dasselbe Konzept. Termine nach Vereinbarung.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-5 md:gap-6">
+        {standorte.map((s, i) => (
+          <div class={`card flex flex-col fade-in stagger-${i + 1}`}>
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="h-lg mb-1.5">{s.short}</h3>
+                <p class="text-muted">{s.street}<br />{s.postcode} {s.city}</p>
+              </div>
+              <span class="icon-chip"><Icon name="MapPin" size={22} strokeWidth={1.8} /></span>
+            </div>
+            <div class="hairline my-6"></div>
+            <div class="space-y-2.5 text-[0.97rem]">
+              <a href={`tel:${s.phoneIntl}`} class="flex items-center gap-3 text-ink hover:text-blue-ink transition">
+                <Icon name="Phone" size={17} strokeWidth={2} class="text-blue-deep" /> {s.phoneDisplay}
+              </a>
+              {s.mobileDisplay && (
+                <a href={`tel:${s.mobileIntl}`} class="flex items-center gap-3 text-ink hover:text-blue-ink transition">
+                  <Icon name="PhoneCall" size={17} strokeWidth={2} class="text-blue-deep" /> {s.mobileDisplay} <span class="text-muted-light text-sm">(mobil)</span>
+                </a>
+              )}
+            </div>
+            <div class="mt-6 flex gap-3">
+              <a href={s.mapsUrl} target="_blank" rel="noopener" class="arrow-link">Route berechnen<Icon name="Navigation" size={15} strokeWidth={2.2} /></a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="mt-8 text-center fade-in">
+        <a href="/standorte" class="btn btn-outline">Karten &amp; Anfahrt<Icon name="ArrowRight" size={15} strokeWidth={2.2} /></a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>
