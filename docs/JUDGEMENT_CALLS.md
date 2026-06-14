@@ -78,3 +78,14 @@ aus dem Scrape (docs/text-*.txt). Nichts erfunden - offene Punkte hier dokumenti
 - **Google Maps** lädt erst nach aktivem Klick (Consent) - DSGVO-konform.
 - Static (Astro 5, kein SSR/Adapter), Tailwind v3.4, CSS inline, Fonts self-hosted
   mit `font-display:optional` (CLS ~0), Bilder webp + preload für LCP.
+
+## Update - Team-Fotos integriert
+Die Team-Fotos der Altseite wurden übernommen und den beiden Standorten zugeordnet.
+Die Name↔Foto-Zuordnung ist **positions-verifiziert**: pro Foto wurde der direkt
+rechts daneben stehende Name aus der alten Team-Seite ausgelesen (nicht geraten) und
+gegen das Original-Layout gegengeprüft. Carsten ist je Seite oben „featured" (nicht im
+Raster). **Jennifer Lang** hatte auf der Altseite kein Foto (leerer Platzhalter) → wird
+als Initialen-Kachel gezeigt. Tarek Hijazi und Jennifer Lang arbeiten an beiden Standorten.
+Die Fotos sind aus dem High-DPR-Render der Altseite gewonnen (Google-CDN sperrt Downloads).
+→ **TODO:** Bei Gelegenheit Original-Fotos für maximale Schärfe nachreichen; Foto für
+Jennifer Lang ergänzen, falls gewünscht.

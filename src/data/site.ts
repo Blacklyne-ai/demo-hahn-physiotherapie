@@ -61,8 +61,11 @@ export interface Standort {
   email: string;
   mapsEmbed: string;
   mapsUrl: string;
-  team: string[];
+  team: TeamMember[];
 }
+// Fotos verifiziert über Positions-Mapping (Name direkt rechts vom Foto) der
+// alten Team-Seite. Jennifer Lang hatte dort kein Foto → kein photo-Feld.
+export interface TeamMember { name: string; photo?: string }
 
 export const standorte: Standort[] = [
   {
@@ -80,8 +83,19 @@ export const standorte: Standort[] = [
     email: 'info@hahn-physiotherapie.com',
     mapsEmbed: 'https://www.google.com/maps?q=Völklinger+Straße+5,+66346+Püttlingen&z=16&output=embed',
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Hahn+Physiotherapie+Völklinger+Straße+5+66346+Püttlingen',
-    // verbatim Reihenfolge mitarbeiter/püttlingen
-    team: ['Carsten Hahn', 'Franziska Strauß', 'Michaela Müller', 'Gertrud Speicher', 'Vera Haupt', 'Tarek Hijazi', 'Julia Kurz', 'Silke Schattle', 'Anke Glocker-Spaniol', 'Jennifer Lang'],
+    // verbatim Reihenfolge mitarbeiter/püttlingen (Fotos verifiziert)
+    team: [
+      { name: 'Carsten Hahn' },
+      { name: 'Franziska Strauß', photo: '/images/team/puettlingen-franziska-strauss.webp' },
+      { name: 'Michaela Müller', photo: '/images/team/puettlingen-michaela-muller.webp' },
+      { name: 'Gertrud Speicher', photo: '/images/team/puettlingen-gertrud-speicher.webp' },
+      { name: 'Vera Haupt', photo: '/images/team/puettlingen-vera-haupt.webp' },
+      { name: 'Tarek Hijazi', photo: '/images/team/puettlingen-tarek-hijazi.webp' },
+      { name: 'Julia Kurz', photo: '/images/team/puettlingen-julia-kurz.webp' },
+      { name: 'Silke Schattle', photo: '/images/team/puettlingen-silke-schattle.webp' },
+      { name: 'Anke Glocker-Spaniol', photo: '/images/team/puettlingen-anke-glocker-spaniol.webp' },
+      { name: 'Jennifer Lang' },
+    ],
   },
   {
     id: 'elversberg',
@@ -95,8 +109,19 @@ export const standorte: Standort[] = [
     email: 'info@hahn-physiotherapie.com',
     mapsEmbed: 'https://www.google.com/maps?q=St.+Ingberter+Straße+1,+66583+Spiesen-Elversberg&z=16&output=embed',
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Hahn+Physiotherapie+St.+Ingberter+Straße+1+66583+Spiesen-Elversberg',
-    // verbatim Reihenfolge mitarbeiter/elversberg
-    team: ['Carsten Hahn', 'Joel Lezius', 'Karin Bähr', 'Sylke Lotz', 'Melanie', 'Tarek Hijazi', 'Rohtraut Weisgerber', 'Kerstin Gottesleben', 'Christel Holzer', 'Jennifer Lang'],
+    // verbatim Reihenfolge mitarbeiter/elversberg (Fotos verifiziert)
+    team: [
+      { name: 'Carsten Hahn' },
+      { name: 'Joel Lezius', photo: '/images/team/elversberg-joel-lezius.webp' },
+      { name: 'Karin Bähr', photo: '/images/team/elversberg-karin-bahr.webp' },
+      { name: 'Sylke Lotz', photo: '/images/team/elversberg-sylke-lotz.webp' },
+      { name: 'Melanie', photo: '/images/team/elversberg-melanie.webp' },
+      { name: 'Tarek Hijazi', photo: '/images/team/elversberg-tarek-hijazi.webp' },
+      { name: 'Rohtraut Weisgerber', photo: '/images/team/elversberg-rohtraut-weisgerber.webp' },
+      { name: 'Kerstin Gottesleben', photo: '/images/team/elversberg-kerstin-gottesleben.webp' },
+      { name: 'Christel Holzer', photo: '/images/team/elversberg-christel-holzer.webp' },
+      { name: 'Jennifer Lang' },
+    ],
   },
 ];
 
