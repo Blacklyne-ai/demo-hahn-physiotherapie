@@ -89,3 +89,11 @@ als Initialen-Kachel gezeigt. Tarek Hijazi und Jennifer Lang arbeiten an beiden 
 Die Fotos sind aus dem High-DPR-Render der Altseite gewonnen (Google-CDN sperrt Downloads).
 → **TODO:** Bei Gelegenheit Original-Fotos für maximale Schärfe nachreichen; Foto für
 Jennifer Lang ergänzen, falls gewünscht.
+
+## Update - Team-Positionen aus den Dropdowns
+Die alte Team-Seite versteckte je Person die Position/Qualifikationen hinter einem
+Klapp-Dropdown. Diese Inhalte wurden ausgelesen (Dropdowns programmatisch expandiert)
+und jetzt direkt - ohne Klick - unter jedem Namen angezeigt (Rolle + Skills, z. B.
+Vojtatherapie, Bobath, Man. Lymphdrainage, Dorn/Breuss, NLZ-Saar). Verbatim aus der
+Altseite. Carsten-Foto: ausschließlich das neue Foto (kariertes Hemd); das alte
+Hell-Hemd-Foto wurde entfernt.

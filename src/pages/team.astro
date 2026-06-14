@@ -6,15 +6,7 @@ import PageHero from '../components/PageHero.astro';
 import { standorte, site } from '../data/site';
 import { carstenQuals, carstenQuote } from '../data/content';
 
-// Rollen, soweit aus dem Scrape belegt (sonst kein erfundener Titel)
-const roles: Record<string, string> = {
-  'Carsten Hahn': 'Inhaber · Physiotherapeut (B.Sc.)',
-  'Franziska Strauß': 'Schwerpunkt Pädiatrie · Vojta-Therapeutin',
-  'Michaela Müller': 'Schwerpunkt Neurologie',
-  'Gertrud Speicher': 'Schwerpunkt Neurologie',
-  'Julia Kurz': 'Schwerpunkt Neurologie',
-  'Karin Bähr': 'Schwerpunkt Neurologie',
-};
+// Positionen/Qualifikationen kommen verbatim aus den Team-Dropdowns der Altseite (site.ts)
 const initials = (n: string) => n.split(' ').filter(Boolean).map((w) => w[0]).slice(0, 2).join('');
 ---
 <Layout title={`Team - ${site.name}`} description="Das Team von Hahn Physiotherapie an den Standorten Püttlingen und Spiesen-Elversberg - rund um Inhaber Carsten Hahn (B.Sc.)." current="/team">
@@ -69,7 +61,10 @@ const initials = (n: string) => n.split(' ').filter(Boolean).map((w) => w[0]).sl
               </div>
               <div class="p-4 md:p-5">
                 <p class="text-ink font-medium leading-tight">{m.name}</p>
-                {roles[m.name] && <p class="text-muted-light text-sm mt-0.5">{roles[m.name]}</p>}
+                {m.role && <p class="text-blue-deep text-sm mt-1 leading-snug">{m.role}</p>}
+                {m.quals && m.quals.length > 0 && (
+                  <p class="text-muted-light text-[0.8rem] mt-1.5 leading-snug">{m.quals.join(' · ')}</p>
+                )}
               </div>
             </div>
           ))}
