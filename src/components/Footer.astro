@@ -4,18 +4,18 @@ import Icon from './Icon.astro';
 const year = 2026;
 ---
 <footer class="section-dark on-dark relative overflow-hidden" role="contentinfo" style="background: rgb(var(--rgb-dark-deep));">
-  <div class="container-px relative pt-16 md:pt-20 pb-24 lg:pb-10">
-    <div class="grid lg:grid-cols-12 gap-12 lg:gap-10 pb-12 border-b border-white/10">
-      <!-- Brand + standorte -->
-      <div class="lg:col-span-5">
+  <div class="container-px relative pt-16 md:pt-20 pb-24 lg:pb-12">
+    <div class="grid md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-10 pb-12 border-b border-white/10">
+      <!-- Brand -->
+      <div class="lg:col-span-4">
         <a href="/" aria-label={`${site.name} - Startseite`} class="inline-block">
           <img src="/logo-light.png" alt="Hahn Physiotherapie" width="230" height="40" class="h-10 w-auto" loading="lazy" />
         </a>
-        <p class="text-white/55 text-[0.96rem] leading-relaxed mt-5 max-w-sm text-pretty">
+        <p class="text-white/60 text-[0.95rem] leading-relaxed mt-6 max-w-xs text-pretty">
           Praxis für Physiotherapie, Gesundheit und Prävention von Carsten Hahn (B.Sc.) -
           mit dem L.I.G.H.T.-Konzept aus der Erfahrung des Leistungssports.
         </p>
-        <div class="flex items-center gap-3 mt-6">
+        <div class="flex items-center gap-3 mt-7">
           <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram" class="social-ico">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
           </a>
@@ -28,63 +28,57 @@ const year = 2026;
         </div>
       </div>
 
-      <!-- Standort columns -->
-      {standorte.map((s) => (
-        <div class="lg:col-span-3">
-          <h3 class="text-white text-[0.78rem] font-semibold uppercase tracking-[0.16em] mb-4">{s.short}</h3>
-          <ul class="space-y-3 text-[0.92rem] text-white/60">
-            <li class="flex items-start gap-2.5">
-              <Icon name="MapPin" size={16} strokeWidth={2} class="mt-0.5 flex-shrink-0 text-blue-bright" />
-              <span>{s.street}<br />{s.postcode} {s.city}</span>
-            </li>
-            <li>
-              <a href={`tel:${s.phoneIntl}`} class="flex items-center gap-2.5 hover:text-white transition">
-                <Icon name="Phone" size={16} strokeWidth={2} class="flex-shrink-0 text-blue-bright" />
-                <span>{s.phoneDisplay}</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      ))}
-
-      <!-- Links -->
-      <div class="lg:col-span-1 lg:col-start-12 sr-only lg:not-sr-only"></div>
-    </div>
-
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-10">
-      <div class="sm:col-span-2 lg:col-span-2">
-        <a href={mailLink} class="inline-flex items-center gap-2.5 text-white hover:text-blue-bright transition text-lg font-display">
-          <Icon name="Mail" size={18} strokeWidth={2} class="text-blue-bright" /> {site.email}
-        </a>
-        <p class="text-white/65 text-sm mt-2">Termine nach Vereinbarung - schreiben Sie uns oder rufen Sie an.</p>
-      </div>
-      <div>
-        <h4 class="text-white/80 text-[0.74rem] font-semibold uppercase tracking-[0.16em] mb-4">Praxis</h4>
+      <!-- Praxis -->
+      <div class="lg:col-span-2">
+        <h3 class="text-white text-[0.74rem] font-semibold uppercase tracking-[0.16em] mb-5">Praxis</h3>
         <ul class="space-y-2.5 text-[0.92rem]">
-          {footerNav.praxis.map((l) => (<li><a href={l.href} class="text-white/55 hover:text-white transition">{l.label}</a></li>))}
+          {footerNav.praxis.map((l) => (<li><a href={l.href} class="text-white/60 hover:text-white transition">{l.label}</a></li>))}
         </ul>
       </div>
-      <div>
-        <h4 class="text-white/80 text-[0.74rem] font-semibold uppercase tracking-[0.16em] mb-4">Leistungen</h4>
+
+      <!-- Leistungen -->
+      <div class="lg:col-span-3">
+        <h3 class="text-white text-[0.74rem] font-semibold uppercase tracking-[0.16em] mb-5">Leistungen</h3>
         <ul class="space-y-2.5 text-[0.92rem]">
-          {footerNav.leistungen.slice(0, 5).map((l) => (<li><a href={l.href} class="text-white/55 hover:text-white transition">{l.label}</a></li>))}
+          {footerNav.leistungen.map((l) => (<li><a href={l.href} class="text-white/60 hover:text-white transition">{l.label}</a></li>))}
+        </ul>
+      </div>
+
+      <!-- Kontakt -->
+      <div class="lg:col-span-3">
+        <h3 class="text-white text-[0.74rem] font-semibold uppercase tracking-[0.16em] mb-5">Kontakt</h3>
+        <ul class="space-y-4 text-[0.92rem] text-white/60">
+          {standorte.map((s) => (
+            <li>
+              <p class="text-white/85 font-medium mb-0.5">{s.short}</p>
+              <p>{s.street}, {s.postcode} {s.city}</p>
+              <a href={`tel:${s.phoneIntl}`} class="inline-flex items-center gap-2 mt-1 hover:text-white transition">
+                <Icon name="Phone" size={14} strokeWidth={2} class="text-blue-bright" />{s.phoneDisplay}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href={mailLink} class="inline-flex items-center gap-2 hover:text-white transition break-all">
+              <Icon name="Mail" size={14} strokeWidth={2} class="text-blue-bright" />{site.email}
+            </a>
+          </li>
         </ul>
       </div>
     </div>
 
     <!-- Legal bar -->
-    <div class="mt-12 pt-7 border-t border-white/10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-      <p class="text-white/60 text-[0.82rem] text-pretty">
+    <div class="pt-7 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <p class="text-white/55 text-[0.82rem] text-pretty">
         © {year} {site.legal.businessName} · {site.legal.street}, {site.legal.postcode} {site.legal.city}
       </p>
       <div class="flex items-center gap-5 text-[0.85rem]">
-        {legalNav.map((l) => (<a href={l.href} class="text-white/55 hover:text-white transition">{l.label}</a>))}
+        {legalNav.map((l) => (<a href={l.href} class="text-white/60 hover:text-white transition">{l.label}</a>))}
       </div>
     </div>
   </div>
 </footer>
 
 <style>
-  .social-ico { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 999px; color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); transition: all 0.25s ease; }
+  .social-ico { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 999px; color: rgba(255,255,255,0.78); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); transition: all 0.25s ease; }
   .social-ico:hover { color: #fff; background: rgba(92,178,226,0.18); border-color: rgba(92,178,226,0.5); transform: translateY(-2px); }
 </style>

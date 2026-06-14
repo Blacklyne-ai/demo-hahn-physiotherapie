@@ -5,7 +5,7 @@ import CtaBand from '../components/CtaBand.astro';
 import { site, standorte } from '../data/site';
 import { services, light, sportVita, carstenStory, carstenQuote, carstenClosing, carstenQuals } from '../data/content';
 ---
-<Layout title={`${site.name} - Ihr Weg zu mehr Lebensqualität | Püttlingen & Spiesen-Elversberg`} current="/" heroPreload="/images/hero.webp">
+<Layout title={`${site.name} - Ihr Weg zu mehr Lebensqualität | Püttlingen & Spiesen-Elversberg`} current="/" heroPreload={{ srcset: '/images/hero-sm.webp 900w, /images/hero.webp 1500w', sizes: '(min-width: 1024px) 48vw, 92vw' }}>
 
   <!-- ════════ HERO (split, type-led, warm) ════════ -->
   <section class="bg-paper relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24">
@@ -31,9 +31,29 @@ import { services, light, sportVita, carstenStory, carstenQuote, carstenClosing,
           <div class="relative">
             <div class="absolute -inset-3 md:-inset-5 rounded-[2.2rem] bg-blue/5 -z-10 hidden sm:block" aria-hidden="true"></div>
             <div class="photo-frame aspect-[5/4] md:aspect-[4/3]">
-              <img src="/images/hero.webp" alt="Physiotherapeut begleitet eine Patientin bei einer Übung" width="750" height="625" fetchpriority="high" />
+              <img src="/images/hero.webp" srcset="/images/hero-sm.webp 900w, /images/hero.webp 1500w" sizes="(min-width: 1024px) 48vw, 92vw" alt="Physiotherapeut begleitet eine Patientin bei einer Übung" width="750" height="625" fetchpriority="high" />
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ TRUST-STRIP (nur belegte Fakten) ════════ -->
+  <section class="bg-white border-y border-line">
+    <div class="container-px">
+      <div class="grid sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-line">
+        <div class="flex items-center gap-3.5 py-5 sm:py-6 sm:pr-6 fade-in">
+          <Icon name="Hand" size={22} strokeWidth={1.6} class="text-blue-deep flex-shrink-0" />
+          <p class="text-[0.95rem]"><span class="text-ink font-medium">Direktzugang</span><span class="text-muted"> - Beratung ohne ärztliche Verordnung</span></p>
+        </div>
+        <div class="flex items-center gap-3.5 py-5 sm:py-6 sm:px-6 fade-in stagger-1">
+          <Icon name="MapPin" size={22} strokeWidth={1.6} class="text-blue-deep flex-shrink-0" />
+          <p class="text-[0.95rem]"><span class="text-ink font-medium">Zwei Standorte</span><span class="text-muted"> - Püttlingen &amp; Spiesen-Elversberg</span></p>
+        </div>
+        <div class="flex items-center gap-3.5 py-5 sm:py-6 sm:pl-6 fade-in stagger-2">
+          <Icon name="Medal" size={22} strokeWidth={1.6} class="text-blue-deep flex-shrink-0" />
+          <p class="text-[0.95rem]"><span class="text-ink font-medium">L.I.G.H.T.-Konzept</span><span class="text-muted"> - aus dem Leistungssport</span></p>
         </div>
       </div>
     </div>
@@ -127,20 +147,30 @@ import { services, light, sportVita, carstenStory, carstenQuote, carstenClosing,
     </div>
   </section>
 
-  <!-- ════════ PRÄVENTION (externer Kurs) ════════ -->
-  <section class="bg-cream sec-sm border-b border-line">
+  <!-- ════════ PRÄVENTION (eigener, klar abgesetzter Block - externer Kurs) ════════ -->
+  <section class="bg-cream sec border-b border-line" id="praevention">
     <div class="container-px">
-      <div class="panel p-8 md:p-12 grid lg:grid-cols-12 gap-8 items-center fade-in" style="background:#fff;">
-        <div class="lg:col-span-8">
-          <span class="eyebrow eyebrow-clay mb-4">Prävention</span>
-          <h2 class="h-xl text-balance mb-4">Vorbeugen, bevor etwas wehtut</h2>
-          <p class="lead text-pretty max-w-2xl">
-            Alle Infos und die Anmeldung zum Präventionskurs finden Sie direkt auf unserer
-            eigenen Kursseite - dort läuft die Organisation und Buchung.
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div class="fade-in order-2 lg:order-1">
+          <span class="pill mb-6" style="background: rgb(var(--rgb-clay) / 0.1); color: rgb(var(--rgb-clay)); border-color: rgb(var(--rgb-clay) / 0.22);">
+            <Icon name="ArrowUpRight" size={14} strokeWidth={2.2} /> Externes Kursangebot
+          </span>
+          <h2 class="display-2 text-balance mb-5">Vorbeugen, bevor<br class="hidden sm:block" /> etwas wehtut</h2>
+          <p class="lead text-pretty mb-6">
+            Neben der Therapie bieten wir einen eigenen Präventionskurs an. Anmeldung,
+            Termine und alle Infos laufen direkt über unsere Kursseite - unabhängig vom Praxisbetrieb.
           </p>
-        </div>
-        <div class="lg:col-span-4 lg:text-right">
+          <ul class="space-y-2.5 mb-8">
+            <li class="flex items-center gap-3 text-[1rem]"><Icon name="Check" size={18} strokeWidth={2.4} class="text-clay flex-shrink-0" /> Eigene Kursseite mit Anmeldung</li>
+            <li class="flex items-center gap-3 text-[1rem]"><Icon name="Check" size={18} strokeWidth={2.4} class="text-clay flex-shrink-0" /> Organisation und Buchung direkt dort</li>
+          </ul>
           <a href={site.praeventionUrl} target="_blank" rel="noopener" class="btn btn-blue btn-lg">Zum Präventionskurs<Icon name="ArrowUpRight" size={17} strokeWidth={2.2} /></a>
+        </div>
+        <div class="fade-in stagger-1 order-1 lg:order-2">
+          <div class="photo-frame aspect-[4/3] relative">
+            <img src="/images/praevention.webp" alt="Gemeinsamer Bewegungskurs im Freien - Prävention" width="600" height="450" loading="lazy" />
+            <span class="absolute top-4 right-4 pill pill-dark text-xs"><Icon name="ArrowUpRight" size={13} strokeWidth={2.2} /> extern</span>
+          </div>
         </div>
       </div>
     </div>

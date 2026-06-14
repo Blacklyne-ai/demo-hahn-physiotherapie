@@ -22,7 +22,7 @@ interface Props {
   ogImage?: string;
   noindex?: boolean;
   schema?: object | object[] | null;
-  heroPreload?: string;
+  heroPreload?: { srcset: string; sizes?: string };
 }
 const {
   title, description = site.description, current = '',
@@ -40,7 +40,7 @@ const ogImageUrl = new URL(ogImage, site.url).toString();
     <script is:inline>document.documentElement.classList.add('js');</script>
     <link rel="preload" as="font" type="font/woff2" href="/fonts/fraunces-opsz.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={workSans400} crossorigin />
-    {heroPreload && <link rel="preload" as="image" type="image/webp" href={heroPreload} fetchpriority="high" />}
+    {heroPreload && <link rel="preload" as="image" type="image/webp" imagesrcset={heroPreload.srcset} imagesizes={heroPreload.sizes ?? '100vw'} fetchpriority="high" />}
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href={canonical} />
