@@ -3,6 +3,8 @@ import { nav, standorte, site } from '../data/site';
 import Icon from './Icon.astro';
 const { current = '' } = Astro.props;
 const tel = standorte[0];
+// Desktop-Pille: Start (= Logo) und Kontakt (= CTA) nicht doppelt als Textlink
+const navLinks = nav.filter((i) => i.href !== '/' && i.href !== '/kontakt');
 
 const isActive = (item: (typeof nav)[number]) =>
   current === item.href ||
@@ -10,18 +12,21 @@ const isActive = (item: (typeof nav)[number]) =>
   (!!item.children && item.children.some((c) => c.href === current));
 ---
 
-<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-shadow duration-300"
-  style="background: rgba(250,247,242,0.88); backdrop-filter: blur(14px) saturate(150%); -webkit-backdrop-filter: blur(14px) saturate(150%); border-bottom: 1px solid rgba(230,223,212,0.9);">
-  <div class="container-wide">
-    <div class="flex items-center justify-between gap-4 h-[4.6rem] md:h-20">
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50">
+  <div class="container-wide pt-3 md:pt-4">
+    <div
+      id="nav-pill"
+      class="flex items-center justify-between gap-4 rounded-pill pl-4 pr-2 md:pl-6 md:pr-3 h-14 md:h-[4.1rem] transition-all duration-300"
+      style="background: rgba(250,247,242,0.82); backdrop-filter: blur(16px) saturate(150%); -webkit-backdrop-filter: blur(16px) saturate(150%); border: 1px solid rgba(230,223,212,0.85); box-shadow: 0 1px 2px rgba(40,40,35,0.04), 0 8px 28px -14px rgba(40,40,35,0.16);"
+    >
       <!-- Brand: Original-Logo 1:1 -->
       <a href="/" class="flex items-center flex-shrink-0" aria-label={`${site.name} - Startseite`}>
-        <img src="/logo.png" alt="Hahn Physiotherapie - Gesundheit & Prävention" width="220" height="39" class="h-7 md:h-9 w-auto" />
+        <img src="/logo.png" alt="Hahn Physiotherapie - Gesundheit & Prävention" width="220" height="39" class="h-6 md:h-8 w-auto" />
       </a>
 
       <!-- Desktop nav -->
-      <nav class="hidden lg:flex items-center gap-7" aria-label="Hauptnavigation">
-        {nav.filter((i) => i.href !== '/').map((item) =>
+      <nav class="hidden lg:flex items-center gap-x-3 xl:gap-x-7" aria-label="Hauptnavigation">
+        {navLinks.map((item) =>
           item.children ? (
             <div class="nav-dd relative">
               <a href={item.href} class={`nav-link inline-flex items-center gap-1 ${isActive(item) ? 'active' : ''}`} aria-haspopup="true" aria-expanded="false">
@@ -35,34 +40,34 @@ const isActive = (item: (typeof nav)[number]) =>
               </div>
             </div>
           ) : item.external ? (
-            <a href={item.href} target="_blank" rel="noopener" class="nav-link inline-flex items-center gap-1.5">
-              {item.label}<Icon name="ArrowUpRight" size={14} strokeWidth={2.2} />
+            <a href={item.href} target="_blank" rel="noopener" class="nav-link inline-flex items-center gap-1">
+              {item.label}<Icon name="ArrowUpRight" size={13} strokeWidth={2.2} />
             </a>
           ) : (
-            <a href={item.href} class={`nav-link ${isActive(item) ? 'active' : ''}`}>{item.label}</a>
+            <a href={item.href} aria-current={isActive(item) ? 'page' : undefined} class={`nav-link ${isActive(item) ? 'active' : ''}`}>{item.label}</a>
           )
         )}
       </nav>
 
       <!-- Right cluster -->
       <div class="flex items-center gap-2.5">
-        <a href={`tel:${tel.phoneIntl}`} class="hidden md:inline-flex items-center gap-2 text-ink/80 hover:text-blue-ink transition text-sm font-medium" aria-label={`Anrufen Püttlingen ${tel.phoneDisplay}`}>
-          <Icon name="Phone" size={16} strokeWidth={2} class="text-blue-deep" />
-          <span class="hidden xl:inline">{tel.phoneDisplay}</span>
+        <a href={`tel:${tel.phoneIntl}`} class="hidden xl:inline-flex items-center gap-2 text-ink/80 hover:text-blue-ink transition text-sm font-medium" aria-label={`Anrufen Püttlingen ${tel.phoneDisplay}`}>
+          <Icon name="Phone" size={15} strokeWidth={2} class="text-blue-deep" />
+          <span>{tel.phoneDisplay}</span>
         </a>
         <a href="/kontakt" class="btn btn-blue btn-sm hidden sm:inline-flex">Termin vereinbaren</a>
 
-        <button id="menu-toggle" class="lg:hidden inline-flex items-center justify-center w-11 h-11 -mr-1.5 rounded-full transition" style="color:#1A2A32;" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+        <button id="menu-toggle" class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full transition" style="color:#1A2A32;" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
           <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden lg:hidden border-t border-line" style="background: rgba(250,247,242,0.98); backdrop-filter: blur(16px);">
-    <nav class="container-px flex flex-col py-4 max-h-[calc(100vh-4.6rem)] overflow-y-auto" aria-label="Mobile Navigation">
-      {nav.map((item) => (
+  <!-- Mobile menu (Pille darunter) -->
+  <div id="mobile-menu" class="hidden lg:hidden container-wide mt-2">
+    <nav class="rounded-3xl p-4 flex flex-col max-h-[calc(100vh-6rem)] overflow-y-auto" style="background: rgba(250,247,242,0.98); backdrop-filter: blur(18px); border: 1px solid rgba(230,223,212,0.85); box-shadow: 0 24px 50px -22px rgba(40,40,35,0.28);" aria-label="Mobile Navigation">
+      {nav.filter((i) => i.href !== '/').map((item) => (
         <Fragment>
           <a href={item.href} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener' : undefined}
             class="py-3 text-ink/90 hover:text-blue-ink border-b border-line/70 font-display text-lg inline-flex items-center gap-1.5"
@@ -87,21 +92,21 @@ const isActive = (item: (typeof nav)[number]) =>
 </header>
 
 <style>
-  .hamburger { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; width: 24px; height: 24px; }
-  .hamburger span { display: block; width: 24px; height: 2px; background: #1A2A32; border-radius: 2px; transition: transform 0.4s cubic-bezier(0.68,-0.55,0.27,1.55), opacity 0.25s ease; transform-origin: center; }
+  .hamburger { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; width: 22px; height: 22px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: #1A2A32; border-radius: 2px; transition: transform 0.4s cubic-bezier(0.68,-0.55,0.27,1.55), opacity 0.25s ease; transform-origin: center; }
   .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
   .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
   .nav-dd-panel {
-    position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%) translateY(8px);
+    position: absolute; top: calc(100% + 16px); left: 50%; transform: translateX(-50%) translateY(8px);
     min-width: 270px; padding: 0.5rem; border-radius: 16px;
     background: rgba(255,255,255,0.98); border: 1px solid rgb(230,223,212);
     backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%);
     box-shadow: 0 20px 44px -16px rgba(40,40,35,0.24);
     opacity: 0; visibility: hidden; transition: opacity 0.25s ease, transform 0.25s ease; z-index: 60;
   }
-  .nav-dd-panel::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 18px; }
+  .nav-dd-panel::before { content: ""; position: absolute; left: 0; right: 0; top: -18px; height: 20px; }
   .nav-dd:hover .nav-dd-panel, .nav-dd:focus-within .nav-dd-panel { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
   .nav-dd:hover .nav-dd-chev { transform: rotate(180deg); }
   .nav-dd-chev { transition: transform 0.3s ease; }
@@ -140,8 +145,16 @@ const isActive = (item: (typeof nav)[number]) =>
     window.addEventListener('scroll', () => {
       if (ticking) return; ticking = true;
       requestAnimationFrame(() => {
-        const h = document.getElementById('site-header');
-        if (h) h.style.boxShadow = window.scrollY > 20 ? '0 10px 30px -16px rgba(40,40,35,0.25)' : 'none';
+        const pill = document.getElementById('nav-pill');
+        if (pill) {
+          if (window.scrollY > 16) {
+            pill.style.background = 'rgba(255,255,255,0.92)';
+            pill.style.boxShadow = '0 1px 2px rgba(40,40,35,0.05), 0 14px 36px -16px rgba(40,40,35,0.3)';
+          } else {
+            pill.style.background = 'rgba(250,247,242,0.82)';
+            pill.style.boxShadow = '0 1px 2px rgba(40,40,35,0.04), 0 8px 28px -14px rgba(40,40,35,0.16)';
+          }
+        }
         ticking = false;
       });
     }, { passive: true });

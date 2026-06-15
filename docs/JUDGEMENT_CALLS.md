@@ -97,3 +97,16 @@ und jetzt direkt - ohne Klick - unter jedem Namen angezeigt (Rolle + Skills, z. 
 Vojtatherapie, Bobath, Man. Lymphdrainage, Dorn/Breuss, NLZ-Saar). Verbatim aus der
 Altseite. Carsten-Foto: ausschließlich das neue Foto (kariertes Hemd); das alte
 Hell-Hemd-Foto wurde entfernt.
+
+## Update - Pillen-Menü, Karriere-Seite, Detailpass
+- **Menü** als schwebende Pille umgesetzt (warm, dezent, Schatten verstärkt beim Scrollen);
+  Präventionskurs ↗ und Karriere im Desktop-Menü, Kontakt = CTA, Telefon ab xl.
+- **Karriere-Seite** (/karriere) mit den Eckdaten des Inhabers (verbatim): Voll-/Teilzeit,
+  4.000 € (VZ) / 2.000 € (TZ), 30 Tage Urlaub, geförderte betriebliche Altersvorsorge,
+  Firmenwagen möglich, Standort Püttlingen, Praxis oder reiner Außendienst. Bewerbung
+  per E-Mail/WhatsApp/Telefon (kein Formular). JobPosting-Schema für Google for Jobs.
+  → **TODO:** Gehalt-Bezugszeitraum bestätigen (monatl./jährl., brutto) - im Schema
+  ist baseSalary bewusst ausgelassen, bis das geklärt ist. Carstens Einladungstext ist
+  in seinem Ton formuliert, ohne erfundene Anforderungen/Zusatzleistungen.
+- **A11y:** Breadcrumb-Kontrast site-weit auf AA gehoben; aktiver Menüpunkt mit aria-current.
+  Lighthouse Desktop 100/100/100/100 (Start + Karriere), Mobile Perf 96, CLS 0.

@@ -300,3 +300,27 @@ export const services: Service[] = [
 ];
 
 export const servicesBySlug = Object.fromEntries(services.map((s) => [s.slug, s]));
+
+// ── Karriere (Eckdaten verbatim vom Inhaber: Voll/Teilzeit, 4000€/2000€,
+// 30 Tage Urlaub, geförderte bAV, Firmenauto möglich, Standort Püttlingen,
+// Praxis oder reiner Außendienst). Keine erfundenen Zusatzleistungen. ──
+export interface Benefit { icon: string; label: string; note?: string }
+export const karriere = {
+  jobTitle: 'Physiotherapeut:in (m/w/d)',
+  location: 'Standort Püttlingen',
+  intro:
+    'Wir suchen Verstärkung für unser Team in Püttlingen - in Voll- oder Teilzeit, für die Praxis oder den reinen Außendienst.',
+  benefits: [
+    { icon: 'Clock', label: 'Voll- oder Teilzeit', note: 'Wie es zu deinem Leben passt.' },
+    { icon: 'BadgeEuro', label: '4.000 € / 2.000 €', note: 'Vollzeit / Teilzeit.' },
+    { icon: 'CalendarDays', label: '30 Tage Urlaub', note: 'Zeit zum Auftanken.' },
+    { icon: 'PiggyBank', label: 'Betriebliche Altersvorsorge', note: 'Gefördert.' },
+    { icon: 'Car', label: 'Firmenwagen möglich', note: 'Gerade im Außendienst.' },
+    { icon: 'Route', label: 'Praxis oder Außendienst', note: 'Beides ist möglich.' },
+  ] as Benefit[],
+  carsten: [
+    'Ich suche jemanden, der wie ich überzeugt ist, dass gute Therapie mit Zuhören beginnt. Bei uns arbeitest du mit dem L.I.G.H.T.-Konzept, mit Zeit für den Menschen und in einem Team, das sich gegenseitig trägt.',
+    'Ob frisch examiniert oder mit Erfahrung - wenn du Lust hast, gemeinsam mit unseren Patientinnen und Patienten Ziele zu erreichen, dann passt du zu uns.',
+  ],
+  closing: 'Ich freue mich auf die Zusammenarbeit.',
+};

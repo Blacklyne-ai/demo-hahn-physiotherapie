@@ -1,0 +1,106 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import { site, careerMail, whatsappLink, standorte } from '../data/site';
+import { karriere, carstenClosing } from '../data/content';
+const tel = standorte[0];
+
+// JobPosting (Google for Jobs) - nur belegte Fakten. baseSalary bewusst
+// ausgelassen, da Bezugszeitraum (monatl./jährl.) nicht bestätigt ist.
+const jobSchema = {
+  '@type': 'JobPosting',
+  title: karriere.jobTitle,
+  description: `Physiotherapeut:in (m/w/d) für ${site.name} in Püttlingen, in Voll- oder Teilzeit, für die Praxis oder den reinen Außendienst. Geboten: 30 Tage Urlaub, geförderte betriebliche Altersvorsorge, Firmenwagen möglich, Arbeit nach dem L.I.G.H.T.-Konzept.`,
+  datePosted: '2026-06-15',
+  employmentType: ['FULL_TIME', 'PART_TIME'],
+  directApply: true,
+  hiringOrganization: { '@type': 'Organization', name: site.name, sameAs: site.url, logo: new URL('/logo.png', site.url).toString() },
+  jobLocation: {
+    '@type': 'Place',
+    address: { '@type': 'PostalAddress', streetAddress: standorte[0].street, postalCode: standorte[0].postcode, addressLocality: standorte[0].city, addressRegion: 'Saarland', addressCountry: 'DE' },
+  },
+};
+---
+<Layout
+  title={`Karriere - Physiotherapeut:in gesucht | ${site.name}`}
+  description="Wir suchen Physiotherapeut:innen in Voll- oder Teilzeit für Püttlingen - Praxis oder Außendienst. 30 Tage Urlaub, geförderte Altersvorsorge, Firmenwagen möglich."
+  current="/karriere"
+  schema={jobSchema}
+>
+  <PageHero
+    eyebrow="Karriere"
+    title="Werde Teil unseres <em>Teams</em>"
+    subtitle="Wir suchen Verstärkung in Püttlingen - in Voll- oder Teilzeit, für die Praxis oder den reinen Außendienst."
+    crumb="Karriere"
+    primary={{ href: careerMail, label: 'Jetzt bewerben' }}
+    secondary={{ href: '/team', label: 'Unser Team' }}
+  />
+
+  <!-- Position-Badge -->
+  <section class="bg-white border-b border-line">
+    <div class="container-px py-6 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 fade-in">
+      <span class="pill pill-blue self-start"><Icon name="BriefcaseBusiness" size={14} strokeWidth={2} /> Offene Stelle</span>
+      <p class="text-ink"><span class="font-medium">{karriere.jobTitle}</span><span class="text-muted-light"> · {karriere.location} · Voll- oder Teilzeit</span></p>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="bg-paper sec">
+    <div class="container-px">
+      <div class="max-w-2xl mb-12 fade-in">
+        <span class="eyebrow mb-5">Das bieten wir</span>
+        <h2 class="display-2 text-balance">Gute Arbeit verdient gute Bedingungen</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+        {karriere.benefits.map((b, i) => (
+          <div class={`card flex flex-col fade-in stagger-${(i % 3) + 1}`}>
+            <span class="icon-chip mb-5"><Icon name={b.icon} size={24} strokeWidth={1.8} /></span>
+            <h3 class="h-md mb-1.5">{b.label}</h3>
+            {b.note && <p class="text-muted text-[0.96rem]">{b.note}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Carstens Einladung -->
+  <section class="bg-white sec border-y border-line">
+    <div class="container-px">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div class="lg:col-span-4 fade-in">
+          <div class="photo-frame aspect-[4/5] max-w-xs">
+            <img src="/images/carsten-hahn.webp" alt="Carsten Hahn, Inhaber" width="380" height="475" loading="lazy" />
+          </div>
+        </div>
+        <div class="lg:col-span-8 fade-in stagger-1">
+          <span class="eyebrow mb-6">Ein Wort von Carsten</span>
+          <div class="space-y-5 text-[1.05rem] leading-relaxed">
+            {karriere.carsten.map((p) => <p>{p}</p>)}
+          </div>
+          <p class="mt-7 font-display italic text-blue-deep text-2xl">{karriere.closing}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bewerben -->
+  <section class="section-dark on-dark sec relative overflow-hidden">
+    <div class="absolute -right-24 -top-24 w-[26rem] h-[26rem] rounded-full opacity-[0.14] pointer-events-none" style="background: radial-gradient(circle, rgb(var(--rgb-blue-bright)) 0%, transparent 70%);" aria-hidden="true"></div>
+    <div class="container-px relative">
+      <div class="max-w-3xl fade-in">
+        <span class="eyebrow eyebrow-light mb-6">Bewerben</span>
+        <h2 class="display-2 text-white text-balance mb-5">Klingt nach dir? Dann melde dich.</h2>
+        <p class="text-lg text-white/75 leading-relaxed mb-9 max-w-2xl text-pretty">
+          Schick uns einfach ein paar Zeilen über dich - ganz unkompliziert per E-Mail, WhatsApp
+          oder Telefon. Ein Lebenslauf reicht für den Anfang.
+        </p>
+        <div class="flex flex-col sm:flex-row flex-wrap gap-3">
+          <a href={careerMail} class="btn btn-light btn-lg"><Icon name="Mail" size={17} strokeWidth={2} /> Per E-Mail bewerben</a>
+          <a href={whatsappLink} target="_blank" rel="noopener" class="btn btn-ghost btn-lg"><Icon name="MessageCircle" size={17} strokeWidth={2} /> WhatsApp</a>
+          <a href={`tel:${tel.phoneIntl}`} class="btn btn-ghost btn-lg"><Icon name="Phone" size={17} strokeWidth={2.2} /> {tel.phoneDisplay}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

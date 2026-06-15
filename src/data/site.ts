@@ -154,13 +154,17 @@ export const nav: NavItem[] = [
   { href: site.praeventionUrl, label: 'Präventionskurs', external: true },
   { href: '/standorte', label: 'Standorte' },
   { href: '/team', label: 'Team' },
+  { href: '/karriere', label: 'Karriere' },
   { href: '/kontakt', label: 'Kontakt' },
 ];
+
+export const careerMail = `mailto:${site.email}?subject=${encodeURIComponent('Bewerbung als Physiotherapeut:in')}`;
 
 export const footerNav = {
   praxis: [
     { href: '/konzept', label: 'Das L.I.G.H.T.-Konzept' },
     { href: '/team', label: 'Team' },
+    { href: '/karriere', label: 'Karriere' },
     { href: '/standorte', label: 'Standorte' },
     { href: '/kontakt', label: 'Termin vereinbaren' },
   ],
